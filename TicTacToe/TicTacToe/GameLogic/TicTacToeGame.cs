@@ -55,7 +55,7 @@ public class TicTacToeGame
         else
         {
             //if no one wins, switch the current player
-            CurrentPlayer = (CurrentPlayer == 'X') ? 'X' : 'O';
+            CurrentPlayer = (CurrentPlayer == 'X') ? 'O' : 'X';
         }
 
         return true;
