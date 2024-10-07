@@ -37,7 +37,7 @@ public class TicTacToeController: ControllerBase
         }
 
         // 
-        return BadRequest("Invalid move cheater!");
+        return BadRequest("Invalid move! must be between 0 and 2 or the game is over");
     }
     
     //reset the game
