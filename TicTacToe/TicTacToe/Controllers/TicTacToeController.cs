@@ -30,7 +30,27 @@ public class TicTacToeController: ControllerBase
         //returns the board as a string
         return Ok(boardString.ToString());
     }
+
     
-    [HttpGet("current-player")]
+    //make a move at the given board position
+    [HttpPost("Move/{row}/{col}")]
+    public ActionResult MakeMove(int row, int col)
+    {
+        // Attempt to make the move
+        if (game.MakeMove(row, col))
+        {
+            //return updated board, winner status and if the game is over.
+            return Ok(new
+            {
+                Board = GetFormattedBoard(),
+                Winner = game.Winner,
+                IsGameOver = game.IsGameOver
+            });
+        }
+
+        // 
+        return BadRequest("Invalid move cheater!");
+    }
+    
     
 }
