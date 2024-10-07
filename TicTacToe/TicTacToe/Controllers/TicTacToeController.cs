@@ -16,21 +16,9 @@ public class TicTacToeController: ControllerBase
     [HttpGet("board")]
     public IActionResult GetBoard()
     {
-        
-        var boardString = new StringBuilder();
-        for (int i = 0; i < game.Board.GetLength(0); i++)
-        {
-            for (int j = 0; j < game.Board.GetLength(1); j++)
-            {
-                boardString.Append(game.Board[i, j] + " ");
-            }
-            boardString.AppendLine(); // move to the next line
-        }
-        
-        //returns the board as a string
-        return Ok(boardString.ToString());
+        //converts the 2d array into a string format.
+        return Ok(GetFormattedBoard());
     }
-
     
     //make a move at the given board position
     [HttpPost("Move/{row}/{col}")]
@@ -52,5 +40,28 @@ public class TicTacToeController: ControllerBase
         return BadRequest("Invalid move cheater!");
     }
     
+    //reset the game
+    [HttpPost("Reset")]
+    public ActionResult ResetGame()
+    {
+        game.ResetGame(); //creates a new game
+        return Ok(new { Message = "Game restarted!", Board = GetFormattedBoard() }); //creates a new board with a message saying the game restarted.
+    }
     
+    // Helper method to format the board as a string
+    private string GetFormattedBoard()
+    {
+        var boardString = new StringBuilder();
+
+        for (int i = 0; i < game.Board.GetLength(0); i++)
+        {
+            for (int j = 0; j < game.Board.GetLength(1); j++)
+            {
+                boardString.Append(game.Board[i, j] + " ");
+            }
+            boardString.AppendLine(); // Move to the next line after each row
+        }
+
+        return boardString.ToString();
+    }
 }
