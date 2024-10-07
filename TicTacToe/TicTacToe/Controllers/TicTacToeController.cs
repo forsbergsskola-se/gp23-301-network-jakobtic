@@ -16,6 +16,7 @@ public class TicTacToeController: ControllerBase
     [HttpGet("board")]
     public IActionResult GetBoard()
     {
+        
         var boardString = new StringBuilder();
         for (int i = 0; i < game.Board.GetLength(0); i++)
         {
@@ -23,11 +24,13 @@ public class TicTacToeController: ControllerBase
             {
                 boardString.Append(game.Board[i, j] + " ");
             }
-            boardString.AppendLine();
+            boardString.AppendLine(); // move to the next line
         }
         
         //returns the board as a string
         return Ok(boardString.ToString());
     }
+    
+    [HttpGet("current-player")]
     
 }
