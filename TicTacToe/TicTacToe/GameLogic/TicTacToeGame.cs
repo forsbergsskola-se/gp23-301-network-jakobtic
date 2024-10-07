@@ -29,7 +29,7 @@ public class TicTacToeGame
 
     public bool MakeMove(int row, int col)
     {
-        // If the move is invalid, return false
+        // If the move is invalid, return false. also makes that the player cannot move outside the grid etc.
         if (row < 0 || row > 2 || col < 0 || col > 2 || Board[row, col] != '-' || IsGameOver)
         {
             return false;
@@ -84,6 +84,31 @@ public class TicTacToeGame
             return true;
 
         return false; // No win
+    }
+
+    //checking method to see if the game board is full and draws the game
+    private bool IsBoardFull()
+    {
+        for (int row = 0; row < 3; row++)
+        {
+            for (int col = 0; col < 3; col++)
+            {
+                if (Board[row,col] == '-')
+                {
+                    return false; //found a empty spot
+                }
+            }
+        }
+
+        return true; //no more spots left.
+    }
+
+    public void ResetGame()
+    {
+        InitializeBoard(); // Reinitialize the board
+        CurrentPlayer = 'X'; //resets to starting player
+        IsGameOver = false; 
+        Winner = null; // no winner
     }
     
 }
